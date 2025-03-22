@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add logout functionality
     setupLogout();
+
+    // Setup dropdown toggle functionality
+    setupDropdownToggle();
     
     // Initialize hospital bed search
     initHospitalBedSearch();
@@ -65,6 +68,48 @@ function setupLogout() {
             }, 1500);
         });
     }
+}
+
+// Setup Dropdown Toggle
+function setupDropdownToggle() {
+    const userProfileToggle = document.getElementById('userProfileToggle');
+    const dropdownMenu = document.getElementById('dropdownMenu');
+
+    if (userProfileToggle && dropdownMenu) {
+        // Toggle dropdown on click
+        userProfileToggle.addEventListener('click', function (e) {
+            e.stopPropagation();
+            dropdownMenu.classList.toggle('hidden');
+            userProfileToggle.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!userProfileToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.add('hidden');
+                userProfileToggle.classList.remove('active');
+            }
+        });
+    }
+}
+
+// Show Toast Messages
+function showToast(message, type = 'success') {
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+
+    document.body.appendChild(toast);
+
+    // Auto-remove after 3s
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
 }
 
 // Initialize hospital bed search functionality

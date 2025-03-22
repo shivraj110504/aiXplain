@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MediCare - Healthcare Solutions</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="loggedin.css">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
@@ -26,9 +26,16 @@
                 <a href="hospital-beds.html" class="nav-link">Hospital Beds</a>
             </nav>
             
-            <div class="auth-buttons">
-                <a href="login.html" class="btn btn-ghost">Login</a>
-                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            <div class="user-profile relative">
+                <div class="user-info cursor-pointer" id="userProfileToggle">
+                    <i data-lucide="user-circle" class="icon-md"></i>
+                    <span class="user-name" id="userName">User Name</span>
+                    <i data-lucide="chevron-down" class="icon-sm dropdown-arrow"></i>
+                </div>
+                <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50" id="dropdownMenu">
+                    <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
+                    <a href="#" id="logoutBtn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                </div>
             </div>
             
             <button class="menu-button">
@@ -56,19 +63,6 @@
             <div class="hero-image fade-in">
                 <div class="dna-helix" id="dnaHelix"></div>
             </div>
-        </div>
-    </section>
-
-    <!-- Login Form (for demonstration purposes) -->
-    <section class="login-section">
-        <div class="container">
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginUsername">Username</label>
-                    <input type="text" id="loginUsername" placeholder="Enter your username" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
         </div>
     </section>
 
@@ -439,5 +433,6 @@
 
     <script src="main.js"></script>
     <script src="index.js"></script>
+    <script src="loggedin.js"></script>
 </body>
 </html>

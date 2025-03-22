@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Lucide icons
     lucide.createIcons();
@@ -53,9 +52,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Show success message
             showToast('Login successful. Redirecting...', 'success');
             
-            // Redirect to homepage after a short delay
+            // Redirect to loggedin.html after a short delay
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = 'loggedin.html';
             }, 1500);
         }, 1000);
     }
@@ -87,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // If on login page, redirect to dashboard
             if (window.location.pathname.includes('login.html')) {
-                window.location.href = 'index.html';
+                window.location.href = 'loggedin.html';
             }
         } else {
             // User is not logged in

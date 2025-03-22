@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
   // DNA Helix Animation
   initDNAHelix();
@@ -8,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initialize stats counter
   initStatsCounter();
+
+  // Initialize login redirect
+  initLoginRedirect();
 });
 
 // DNA Helix Animation
@@ -164,5 +166,25 @@ function initStatsCounter() {
   
   stats.forEach(stat => {
       observer.observe(stat);
+  });
+}
+
+// Login Redirect
+function initLoginRedirect() {
+  const loginForm = document.getElementById('loginForm');
+  if (!loginForm) return;
+
+  loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const username = document.getElementById('loginUsername').value;
+    if (!username) {
+      showToast('Please enter your username', 'error');
+      return;
+    }
+
+    // Simulate login process
+    localStorage.setItem('username', username);
+    window.location.href = 'loggedin.html';
   });
 }

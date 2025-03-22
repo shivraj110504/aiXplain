@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize Lucide icons
     lucide.createIcons();
@@ -21,6 +20,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginBtnBottom = document.getElementById('loginBtnBottom');
     const signupBtnBottom = document.getElementById('signupBtnBottom');
     
+    // Dropdown menu for login/signup
+    const authDropdownBtn = document.getElementById('authDropdownBtn');
+    const authDropdownMenu = document.getElementById('authDropdownMenu');
+    const authButtonText = document.getElementById('authButtonText');
+    const loginLink = document.getElementById('loginLink');
+    const signupLink = document.getElementById('signupLink');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+    const logoutLink = document.getElementById('logoutLink');
+
+    authDropdownBtn.addEventListener('click', function() {
+        authDropdownMenu.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', function(event) {
+        if (!authDropdownBtn.contains(event.target) && !authDropdownMenu.contains(event.target)) {
+            authDropdownMenu.classList.add('hidden');
+        }
+    });
+
     // Update UI based on login status
     updateUIForLoginStatus(isLoggedIn);
     
@@ -50,15 +68,29 @@ document.addEventListener('DOMContentLoaded', function() {
     
     sendButton.addEventListener('click', sendMessage);
     
+    // Logout functionality
+    logoutLink.addEventListener('click', function() {
+        localStorage.setItem('isLoggedIn', 'false');
+        localStorage.removeItem('username');
+        window.location.reload();
+    });
+
     // Functions
     function updateUIForLoginStatus(loggedIn) {
         if (loggedIn) {
+            const username = localStorage.getItem('username');
             loginSection.classList.add('hidden');
             moleculeOrbit.classList.remove('hidden');
             chatInputArea.classList.remove('hidden');
             loginPrompt.classList.add('hidden');
             messageInput.disabled = false;
             sendButton.disabled = true;
+            loginLink.style.display = 'none';
+            signupLink.style.display = 'none';
+            usernameDisplay.style.display = 'block';
+            usernameDisplay.textContent = `Hello, ${username}`;
+            authButtonText.textContent = username;
+            logoutLink.style.display = 'block';
         } else {
             loginSection.classList.remove('hidden');
             moleculeOrbit.classList.add('hidden');
@@ -66,6 +98,11 @@ document.addEventListener('DOMContentLoaded', function() {
             loginPrompt.classList.remove('hidden');
             messageInput.disabled = true;
             sendButton.disabled = true;
+            loginLink.style.display = 'block';
+            signupLink.style.display = 'block';
+            usernameDisplay.style.display = 'none';
+            authButtonText.textContent = 'Account';
+            logoutLink.style.display = 'none';
         }
     }
     
