@@ -1,0 +1,117 @@
+
+/* AI Doctor Page Specific Styles */
+.molecule-orbit {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+}
+
+.atom {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30px;
+    height: 30px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.electron {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    animation: orbit 3s linear infinite;
+}
+
+.e1 {
+    animation-duration: 3s;
+}
+
+.e2 {
+    animation-duration: 4s;
+    animation-delay: 0.5s;
+}
+
+.e3 {
+    animation-duration: 5s;
+    animation-delay: 1s;
+}
+
+@keyframes orbit {
+    0% {
+        transform: rotate(0deg) translateX(60px) rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg) translateX(60px) rotate(-360deg);
+    }
+}
+
+#chatMessages {
+    border-radius: 0;
+    height: 300px;
+    overflow-y: auto;
+}
+
+#chatMessages .message {
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+#chatMessages .user {
+    background-color: var(--primary);
+    color: white;
+    margin-left: auto;
+    border-radius: 15px 15px 0 15px;
+}
+
+#chatMessages .bot {
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    margin-right: auto;
+    border-radius: 15px 15px 15px 0;
+}
+
+.how-it-works-list li {
+    margin-bottom: 1rem;
+}
+
+.ai-disclaimer {
+    font-size: 0.8rem;
+    color: var(--muted-foreground);
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.faq-item {
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+/* AI Doctor page specific alignments */
+.ai-doctor-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

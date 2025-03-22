@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Doctor - MediCare</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="global.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header" class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <div class="logo-text">MediCare</div>
+            </a>
+            
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="ai-doctor.html" class="nav-link active">AI Doctor</a>
+                <a href="training.html" class="nav-link">Training</a>
+                <a href="medicine-delivery.html" class="nav-link">Medicine Delivery</a>
+                <a href="hospital-beds.html" class="nav-link">Hospital Beds</a>
+            </nav>
+            
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-ghost">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+            
+            <button class="menu-button">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="py-16 md:py-24">
+        <div class="max-w-6xl mx-auto px-4 md:px-6">
+            <div class="text-center mb-12 fade-in">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">AI-Powered Chat Assistant</h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Experience our AI healthcare assistant powered by Gemini that analyzes symptoms and provides personalized treatment recommendations
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <!-- How It Works Section -->
+                <div class="bg-gradient-to-r from-gray-700 to-gray-600 text-white rounded-t-xl p-8 grid grid-cols-1 md:grid-cols-5 gap-4 fade-in">
+                    <div class="md:col-span-2">
+                        <h2 class="text-xl font-semibold mb-4">How It Works</h2>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 bg-white/10 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+                                    1
+                                </div>
+                                <p class="text-sm">Describe your symptoms in detail</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 bg-white/10 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+                                    2
+                                </div>
+                                <p class="text-sm">Gemini AI analyzes your symptoms pattern</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 bg-white/10 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+                                    3
+                                </div>
+                                <p class="text-sm">Get personalized health advice</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 bg-white/10 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+                                    4
+                                </div>
+                                <p class="text-sm">Receive medication suggestions</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 bg-white/10 rounded-full w-8 h-8 flex items-center justify-center mr-3">
+                                    5
+                                </div>
+                                <p class="text-sm">Book a doctor if needed</p>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div id="loginSection" class="md:col-span-3 flex items-center justify-center">
+                        <div class="bg-white/10 p-6 rounded-xl text-center max-w-sm">
+                            <div class="mx-auto mb-4 w-16 h-16">
+                                <i data-lucide="shield" class="w-16 h-16 text-white/80"></i>
+                            </div>
+                            <h3 class="text-lg font-medium mb-2">Please Login First</h3>
+                            <p class="text-white/80 text-sm mb-4">
+                                To use our Gemini AI Health Assistant and get personalized medical advice, you need to be logged in.
+                            </p>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button class="btn btn-secondary w-full" id="loginBtn">
+                                    <i data-lucide="log-in" class="icon-sm mr-1"></i> Login
+                                </button>
+                                <button class="btn btn-outline border-white text-white hover-light w-full" id="signupBtn">
+                                    <i data-lucide="user-plus" class="icon-sm mr-1"></i> Sign Up
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="moleculeOrbit" class="md:col-span-3 w-full h-full flex items-center justify-center hidden">
+                        <div class="molecule-orbit">
+                            <div class="atom"></div>
+                            <div class="electron e1"></div>
+                            <div class="electron e2"></div>
+                            <div class="electron e3"></div>
+                        </div>
+                    </div>
+                </div>
+            
+                <!-- Chat Interface -->
+                <div class="bg-white rounded-b-xl shadow-md border border-gray-200 overflow-hidden fade-in">
+                    <div class="bg-primary/80 text-white px-4 py-3 flex items-center">
+                        <i data-lucide="bot" class="mr-2" style="width: 20px; height: 20px;"></i>
+                        <h3 class="font-medium">MediCare AI Assistant (Gemini)</h3>
+                    </div>
+                    
+                    <div id="chatMessages" class="h-96 overflow-y-auto p-4 flex flex-col space-y-4">
+                        <!-- Messages will be added here by JavaScript -->
+                    </div>
+                    
+                    <div class="border-t border-gray-200 p-3">
+                        <div id="chatInputArea" class="flex items-center hidden">
+                            <input
+                                type="text"
+                                id="messageInput"
+                                placeholder="Type your symptoms or health concerns..."
+                                class="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-1 focus:ring-primary"
+                            />
+                            <button id="sendButton" class="btn btn-primary rounded-l-none" disabled>
+                                <i data-lucide="send" style="width: 18px; height: 18px;"></i>
+                            </button>
+                        </div>
+                        
+                        <div id="loginPrompt" class="text-center p-2">
+                            <p class="text-gray-600 mb-3">Please log in to chat with the AI assistant</p>
+                            <div class="flex justify-center gap-3">
+                                <button class="btn btn-outline" id="loginBtnBottom">
+                                    <i data-lucide="log-in" class="icon-sm mr-1"></i> Login
+                                </button>
+                                <button class="btn btn-primary" id="signupBtnBottom">
+                                    <i data-lucide="user-plus" class="icon-sm mr-1"></i> Sign Up
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-200 p-4 text-center text-sm text-gray-500">
+                        <p>
+                            Note: This AI assistant provides general health information powered by Gemini. For serious conditions, please consult a healthcare professional.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Section -->
+            <div class="mt-16 max-w-4xl mx-auto">
+                <h2 class="text-2xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
+                
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 fade-in">
+                        <h3 class="font-semibold text-gray-800 mb-3">Is the Gemini AI doctor accurate?</h3>
+                        <p class="text-gray-600">
+                            Our AI health assistant has been trained on extensive medical data and provides suggestions with a high degree of accuracy. However, it is designed to be a complement to, not a replacement for, professional medical advice.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 fade-in">
+                        <h3 class="font-semibold text-gray-800 mb-3">Is my health information secure?</h3>
+                        <p class="text-gray-600">
+                            Yes, all your health information is encrypted and stored securely. We adhere to strict privacy protocols and comply with all healthcare data security regulations. Your data is never shared with third parties without your explicit consent.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 fade-in">
+                        <h3 class="font-semibold text-gray-800 mb-3">Can I use the AI doctor without internet?</h3>
+                        <p class="text-gray-600">
+                            We offer a limited offline mode that provides basic diagnostic capabilities when internet connectivity is poor. However, for the most accurate and personalized recommendations, an internet connection is recommended.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3 class="footer-logo">MediCare</h3>
+                    <p>Providing quality healthcare services and innovative solutions to improve your wellbeing.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i data-lucide="facebook"></i></a>
+                        <a href="#" class="social-link"><i data-lucide="twitter"></i></a>
+                        <a href="#" class="social-link"><i data-lucide="instagram"></i></a>
+                        <a href="#" class="social-link"><i data-lucide="linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="ai-doctor.html">AI Doctor</a></li>
+                        <li><a href="training.html">Training</a></li>
+                        <li><a href="medicine-delivery.html">Medicine Delivery</a></li>
+                        <li><a href="hospital-beds.html">Hospital Beds</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Telemedicine</a></li>
+                        <li><a href="#">Health Checkups</a></li>
+                        <li><a href="#">Medical Tourism</a></li>
+                        <li><a href="#">Home Healthcare</a></li>
+                        <li><a href="#">Emergency Services</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Us</h3>
+                    <ul class="contact-list">
+                        <li>
+                            <i data-lucide="map-pin"></i>
+                            <span>123 Healthcare Avenue, Medical District, City, Country</span>
+                        </li>
+                        <li>
+                            <i data-lucide="phone"></i>
+                            <span>+91 1800 123 4567</span>
+                        </li>
+                        <li>
+                            <i data-lucide="mail"></i>
+                            <span>info@medicare-example.com</span>
+                        </li>
+                        <li>
+                            <i data-lucide="clock"></i>
+                            <span>Mon-Sat: 8:00 AM - 10:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; <span id="current-year">2023</span> MediCare. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container">
+        <button id="chat-toggle" class="chat-toggle">
+            <i data-lucide="message-circle"></i>
+        </button>
+        
+        <div id="chat-window" class="chat-window hidden">
+            <div class="chat-header">
+                <h3>MediCare Chat</h3>
+                <button id="close-chat" class="close-chat">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <div class="chat-messages"></div>
+            
+            <div class="chat-input">
+                <input type="text" id="chat-input" placeholder="Type your message..." disabled>
+                <button class="send-button" disabled>
+                    <i data-lucide="send"></i>
+                </button>
+            </div>
+            
+            <div class="login-prompt">
+                Please <a href="login.html">log in</a> to chat with our support team
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="ai-doctor.js"></script>
+</body>
+</html>
