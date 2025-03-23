@@ -37,6 +37,53 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error("Fetch Error:", error);
                 showToast('Error connecting to server', 'error');
             }
+<<<<<<< HEAD
+=======
+            
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast('Please enter a valid email address', 'error');
+                return;
+            }
+            
+            // Validate phone number (simple validation)
+            if (phone.length < 10) {
+                showToast('Please enter a valid phone number', 'error');
+                return;
+            }
+            
+            // Validate password strength
+            if (password.length < 8) {
+                showToast('Password must be at least 8 characters long', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/users', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fullName, email, phone, password })
+                });
+            
+                if (response.ok) {
+                    showToast('User created successfully', 'success');
+                    window.location.href = 'login.html';
+                } else {
+                    const errorText = await response.text();
+                    let errorMessage = 'An error occurred';
+                    try {
+                        const errorJson = JSON.parse(errorText);
+                        errorMessage = errorJson.message;
+                    } catch (e) {
+                        errorMessage = errorText || 'An unknown error occurred';
+                    }
+                    showToast(`Error: ${errorMessage}`, 'error');
+                }
+            } catch (error) {
+                showToast(`Error: ${error.message}`, 'error');
+            }
+>>>>>>> 7582a14 (new commit)
         });
     }
 });

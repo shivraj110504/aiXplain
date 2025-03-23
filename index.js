@@ -90,38 +90,41 @@ function initAppointmentForm() {
   const form = document.getElementById('appointmentForm');
   if (!form) return;
   
-  form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Simple validation
-      const fullName = document.getElementById('fullName').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const department = document.getElementById('department').value;
-      const date = document.getElementById('appointmentDate').value;
-      const time = document.getElementById('appointmentTime').value;
-      
-      if (!fullName || !email || !phone || !department || !date || !time) {
-          showToast('Please fill in all required fields', 'error');
-          return;
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const fullName = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const department = document.getElementById('department').value;
+    const date = document.getElementById('appointmentDate').value;
+    const time = document.getElementById('appointmentTime').value;
+    const message = document.getElementById('message').value;
+
+    try {
+      const response = await fetch('/api/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName, email, phone, department, date, time, message })
+      });
+
+      if (response.ok) {
+        showToast('Appointment booked successfully', 'success');
+        form.reset();
+      } else {
+        const errorText = await response.text();
+        let errorMessage = 'An error occurred';
+        try {
+          const errorJson = JSON.parse(errorText);
+          errorMessage = errorJson.message;
+        } catch (e) {
+          errorMessage = errorText || 'An unknown error occurred';
+        }
+        showToast(`Error: ${errorMessage}`, 'error');
       }
-      
-      // Validate email
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-          showToast('Please enter a valid email address', 'error');
-          return;
-      }
-      
-      // Validate phone (simple validation for demonstration)
-      if (phone.length < 10) {
-          showToast('Please enter a valid phone number', 'error');
-          return;
-      }
-      
-      // Success - simulating appointment booking
-      showToast('Appointment booked successfully! We will contact you shortly.', 'success');
-      form.reset();
+    } catch (error) {
+      showToast(`Error: ${error.message}`, 'error');
+    }
   });
 }
 
