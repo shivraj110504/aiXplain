@@ -90,83 +90,91 @@ function initAppointmentForm() {
   const form = document.getElementById('appointmentForm');
   if (!form) return;
   
-  form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Simple validation
-      const fullName = document.getElementById('fullName').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const department = document.getElementById('department').value;
-      const date = document.getElementById('appointmentDate').value;
-      const time = document.getElementById('appointmentTime').value;
-      
-      if (!fullName || !email || !phone || !department || !date || !time) {
-          showToast('Please fill in all required fields', 'error');
-          return;
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const fullName = document.getElementById('fullName').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const department = document.getElementById('department').value;
+    const date = document.getElementById('appointmentDate').value;
+    const time = document.getElementById('appointmentTime').value;
+    const message = document.getElementById('message').value;
+
+    try {
+      const response = await fetch('/api/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fullName, email, phone, department, date, time, message })
+      });
+
+      if (response.ok) {
+        showToast('Appointment booked successfully', 'success');
+        form.reset();
+      } else {
+        const errorText = await response.text();
+        let errorMessage = 'An error occurred';
+        try {
+          const errorJson = JSON.parse(errorText);
+          errorMessage = errorJson.message;
+        } catch (e) {
+          errorMessage = errorText || 'An unknown error occurred';
+        }
+        showToast(`Error: ${errorMessage}`, 'error');
       }
-      
-      // Validate email
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-          showToast('Please enter a valid email address', 'error');
-          return;
-      }
-      
-      // Validate phone (simple validation for demonstration)
-      if (phone.length < 10) {
-          showToast('Please enter a valid phone number', 'error');
-          return;
-      }
-      
-      // Success - simulating appointment booking
-      showToast('Appointment booked successfully! We will contact you shortly.', 'success');
-      form.reset();
+    } catch (error) {
+      showToast(`Error: ${error.message}`, 'error');
+    }
   });
 }
 
 // Stats Counter Animation
 function initStatsCounter() {
   const stats = document.querySelectorAll('.stat-number');
-  if (stats.length === 0) return;
   
-  const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
+  const animateValue = (element, start, end, duration) => {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const value = Math.floor(progress * (end - start) + start);
+      
+      // Check if the end value is a decimal number
+      if (Number.isInteger(end)) {
+        element.textContent = value.toLocaleString() + '+';
+      } else {
+        // For decimal numbers (like 98.12), show with fixed decimal places
+        const decimal = (progress * (end - start) + start).toFixed(2);
+        element.textContent = decimal + '%';
+      }
+      
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        // Ensure we end up with the exact target number
+        if (Number.isInteger(end)) {
+          element.textContent = end.toLocaleString() + '+';
+        } else {
+          element.textContent = end.toFixed(2) + '%';
+        }
+      }
+    };
+    window.requestAnimationFrame(step);
   };
-  
+
   const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-          if (entry.isIntersecting) {
-              const target = entry.target;
-              const targetValue = parseInt(target.getAttribute('data-count'));
-              let startValue = 0;
-              let duration = 2000;
-              let startTime = null;
-              
-              function updateValue(timestamp) {
-                  if (!startTime) startTime = timestamp;
-                  const elapsedTime = timestamp - startTime;
-                  const progress = Math.min(elapsedTime / duration, 1);
-                  const currentValue = Math.floor(progress * targetValue);
-                  
-                  target.textContent = currentValue.toLocaleString();
-                  
-                  if (progress < 1) {
-                      requestAnimationFrame(updateValue);
-                  }
-              }
-              
-              requestAnimationFrame(updateValue);
-              observer.unobserve(target);
-          }
-      });
-  }, options);
-  
-  stats.forEach(stat => {
-      observer.observe(stat);
-  });
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const target = entry.target;
+        const endValue = parseFloat(target.dataset.count);
+        target.classList.add('visible');
+        animateValue(target, 0, endValue, 2000);
+        observer.unobserve(target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  stats.forEach(stat => observer.observe(stat));
 }
 
 // Login Redirect

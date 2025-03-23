@@ -109,49 +109,54 @@
                                 </div>
                             </div>
                             
-                            <div class="mt-6 space-y-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">
-                                        Delivery Address
-                                    </label>
-                                    <div class="relative">
-                                        <i data-lucide="map-pin" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" style="width: 16px; height: 16px;"></i>
-                                        <input
-                                            id="addressInput"
-                                            placeholder="Enter your full address"
-                                            class="pl-9 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
-                                        />
+                            <form id="orderForm">
+                                <div class="mt-6 space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                                            Delivery Address
+                                        </label>
+                                        <div class="relative">
+                                            <i data-lucide="map-pin" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" style="width: 16px; height: 16px;"></i>
+                                            <input
+                                                id="addressInput"
+                                                name="address"
+                                                placeholder="Enter your full address"
+                                                required
+                                                class="pl-9 w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary"
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">
-                                        Upload Prescription (if required)
-                                    </label>
-                                    <div class="border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-500 flex items-center justify-between">
-                                        <span id="fileNameDisplay">No file chosen</span>
-                                        <button class="btn btn-ghost btn-sm" id="uploadBtn">
-                                            <i data-lucide="upload" style="width: 16px; height: 16px;" class="mr-1"></i> Choose File
-                                        </button>
-                                        <input type="file" id="prescriptionUpload" class="hidden" accept="image/*,.pdf" />
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                                            Upload Prescription (Optional)
+                                        </label>
+                                        <div class="border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-500 flex items-center justify-between">
+                                            <span id="fileNameDisplay">No file chosen</span>
+                                            <button class="btn btn-ghost btn-sm" id="uploadBtn">
+                                                <i data-lucide="upload" style="width: 16px; height: 16px;" class="mr-1"></i> Choose File
+                                            </button>
+                                            <input type="file" id="prescriptionUpload" class="hidden" accept="image/*,.pdf" />
+                                        </div>
                                     </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                                            Special Instructions
+                                        </label>
+                                        <textarea
+                                            id="specialInstructions"
+                                            name="specialInstructions"
+                                            placeholder="Any special instructions for delivery..."
+                                            class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 resize-none h-24"
+                                        ></textarea>
+                                    </div>
+                                    
+                                    <button id="placeOrderBtn" class="btn btn-primary w-full" type="submit">
+                                        <i data-lucide="check" style="width: 16px; height: 16px;" class="mr-2"></i> Place Order
+                                    </button>
                                 </div>
-                                
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">
-                                        Special Instructions
-                                    </label>
-                                    <textarea
-                                        id="specialInstructions"
-                                        placeholder="Any special instructions for delivery..."
-                                        class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm text-gray-800 resize-none h-24"
-                                    ></textarea>
-                                </div>
-                                
-                                <button id="placeOrderBtn" class="btn btn-primary w-full">
-                                    <i data-lucide="check" style="width: 16px; height: 16px;" class="mr-2"></i> Place Order
-                                </button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
