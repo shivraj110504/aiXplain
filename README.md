@@ -41,7 +41,7 @@ Healthcare in rural India is severely limited due to a lack of medical facilitie
 🔗 GitHub Repository: [MediCare Project](https://github.com/shivraj110504/aiXplain)  
 📹 Demo Video: [Video Link](https://drive.google.com/drive/folders/1XksOYZVOWCpffLGqq2gfuWVQoE_kfhIv?usp=sharing)  
 📑 Presentation (PPT): [Upload and Insert Link]  
-🌐 Live Project: [Deploy & Insert Link]  
+🌐 Live Project: [Live Project Demo](https://shivraj110504.github.io/aiXplain/)
 
 👥 Team  
 🛠 Team Name: Apexers  
