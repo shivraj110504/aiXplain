@@ -131,45 +131,50 @@ function initAppointmentForm() {
 // Stats Counter Animation
 function initStatsCounter() {
   const stats = document.querySelectorAll('.stat-number');
-  if (stats.length === 0) return;
   
-  const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
+  const animateValue = (element, start, end, duration) => {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const value = Math.floor(progress * (end - start) + start);
+      
+      // Check if the end value is a decimal number
+      if (Number.isInteger(end)) {
+        element.textContent = value.toLocaleString() + '+';
+      } else {
+        // For decimal numbers (like 98.12), show with fixed decimal places
+        const decimal = (progress * (end - start) + start).toFixed(2);
+        element.textContent = decimal + '%';
+      }
+      
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        // Ensure we end up with the exact target number
+        if (Number.isInteger(end)) {
+          element.textContent = end.toLocaleString() + '+';
+        } else {
+          element.textContent = end.toFixed(2) + '%';
+        }
+      }
+    };
+    window.requestAnimationFrame(step);
   };
-  
+
   const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-          if (entry.isIntersecting) {
-              const target = entry.target;
-              const targetValue = parseInt(target.getAttribute('data-count'));
-              let startValue = 0;
-              let duration = 2000;
-              let startTime = null;
-              
-              function updateValue(timestamp) {
-                  if (!startTime) startTime = timestamp;
-                  const elapsedTime = timestamp - startTime;
-                  const progress = Math.min(elapsedTime / duration, 1);
-                  const currentValue = Math.floor(progress * targetValue);
-                  
-                  target.textContent = currentValue.toLocaleString();
-                  
-                  if (progress < 1) {
-                      requestAnimationFrame(updateValue);
-                  }
-              }
-              
-              requestAnimationFrame(updateValue);
-              observer.unobserve(target);
-          }
-      });
-  }, options);
-  
-  stats.forEach(stat => {
-      observer.observe(stat);
-  });
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const target = entry.target;
+        const endValue = parseFloat(target.dataset.count);
+        target.classList.add('visible');
+        animateValue(target, 0, endValue, 2000);
+        observer.unobserve(target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  stats.forEach(stat => observer.observe(stat));
 }
 
 // Login Redirect
