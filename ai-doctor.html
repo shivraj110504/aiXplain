@@ -19,16 +19,16 @@
             
             <nav class="nav">
                 <a href="index.html" class="nav-link">Home</a>
-                <a href="about.html" class="nav-link">About</a>
                 <a href="ai-doctor.html" class="nav-link active">AI Doctor</a>
                 <a href="training.html" class="nav-link">Training</a>
                 <a href="medicine-delivery.html" class="nav-link">Medicine Delivery</a>
                 <a href="hospital-beds.html" class="nav-link">Hospital Beds</a>
+                <a href="about.html" class="nav-link">About</a>
             </nav>
             
             <div class="auth-buttons relative">
                 <button class="btn btn-ghost" id="authDropdownBtn"><span id="authButtonText">Account</span> <i data-lucide="chevron-down"></i></button>
-                <div id="authDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg hidden">
+                <div id="authDropdownMenu" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg">
                     <a href="login.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100" id="loginLink">Login</a>
                     <a href="signup.html" class="block px-4 py-2 text-gray-800 hover:bg-gray-100" id="signupLink">Sign Up</a>
                     <div class="block px-4 py-2 text-gray-800" id="usernameDisplay" style="display: none;"></div>
@@ -58,31 +58,31 @@
                     <div class="md:col-span-2">
                         <h2 class="text-xl font-semibold mb-4">How It Works</h2>
                         <ul class="space-y-4">
-                            <li class="flex items-start">
+                            <li class="flex items-start no-justify ">
                                 <div class="flex-shrink-0 bg-white/10 rounded-full w-8 h-8 flex items-center justify-center mr-3">
                                     1
                                 </div>
                                 <p class="text-sm">Describe your symptoms in detail</p>
                             </li>
-                            <li class="flex items-start">
+                            <li class="flex items-start no-justify">
                                 <div class="flex-shrink-0 bg-white/10 rounded-full w-8 h-8 flex items-center justify-center mr-3">
                                     2
                                 </div>
                                 <p class="text-sm">Gemini AI analyzes your symptoms pattern</p>
                             </li>
-                            <li class="flex items-start">
+                            <li class="flex items-start no-justify">
                                 <div class="flex-shrink-0 bg-white/10 rounded-full w-8 h-8 flex items-center justify-center mr-3">
                                     3
                                 </div>
                                 <p class="text-sm">Get personalized health advice</p>
                             </li>
-                            <li class="flex items-start">
+                            <li class="flex items-start no-justify">
                                 <div class="flex-shrink-0 bg-white/10 rounded-full w-8 h-8 flex items-center justify-center mr-3">
                                     4
                                 </div>
                                 <p class="text-sm">Receive medication suggestions</p>
                             </li>
-                            <li class="flex items-start">
+                            <li class="flex items-start no-justify">
                                 <div class="flex-shrink-0 bg-white/10 rounded-full w-8 h-8 flex items-center justify-center mr-3">
                                     5
                                 </div>
@@ -111,7 +111,7 @@
                         </div>
                     </div>
                     
-                    <div id="moleculeOrbit" class="md:col-span-3 w-full h-full flex items-center justify-center hidden">
+                    <div id="moleculeOrbit" class="md:col-span-3 w-full h-full flex items-center justify-center">
                         <div class="molecule-orbit">
                             <div class="atom"></div>
                             <div class="electron e1"></div>
@@ -122,18 +122,18 @@
                 </div>
             
                 <!-- Chat Interface -->
-                <div class="bg-white rounded-b-xl shadow-md border border-gray-200 overflow-hidden fade-in">
+                <div class="background-wh rounded-b-xl shadow-md border border-gray-200 overflow fade-in">
                     <div class="bg-primary/80 text-white px-4 py-3 flex items-center">
                         <i data-lucide="bot" class="mr-2" style="width: 20px; height: 20px;"></i>
                         <h3 class="font-medium">MediCare AI Assistant (Gemini)</h3>
                     </div>
                     
-                    <div id="chatMessages" class="h-96 overflow-y-auto p-4 flex flex-col space-y-4">
+                    <div id="chatMessages" class="overflow-y-auto p-4 flex flex-col space-y-4">
                         <!-- Messages will be added here by JavaScript -->
                     </div>
                     
                     <div class="border-t border-gray-200 p-3">
-                        <div id="chatInputArea" class="flex items-center hidden">
+                        <div id="chatInputArea" class="flex items-center">
                             <input
                                 type="text"
                                 id="messageInput"
@@ -167,26 +167,26 @@
             </div>
             
             <!-- FAQ Section -->
-            <div class="mt-16 max-w-4xl mx-auto">
+            <div class="mt-16 max-w-4xl mx-auto faq-section">
                 <h2 class="text-2xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
                 
                 <div class="space-y-6">
                     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 fade-in">
-                        <h3 class="font-semibold text-gray-800 mb-3">Is the Gemini AI doctor accurate?</h3>
+                        <h3 class="font-semibold text-gray-800 mb-3 cursor-pointer" onclick="toggleAccordion(this)">Is the Gemini AI doctor accurate?</h3><hr>
                         <p class="text-gray-600">
                             Our AI health assistant has been trained on extensive medical data and provides suggestions with a high degree of accuracy. However, it is designed to be a complement to, not a replacement for, professional medical advice.
                         </p>
                     </div>
                     
                     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 fade-in">
-                        <h3 class="font-semibold text-gray-800 mb-3">Is my health information secure?</h3>
+                        <h3 class="font-semibold text-gray-800 mb-3 cursor-pointer" onclick="toggleAccordion(this)">Is my health information secure?</h3><hr>
                         <p class="text-gray-600">
                             Yes, all your health information is encrypted and stored securely. We adhere to strict privacy protocols and comply with all healthcare data security regulations. Your data is never shared with third parties without your explicit consent.
                         </p>
                     </div>
                     
                     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 fade-in">
-                        <h3 class="font-semibold text-gray-800 mb-3">Can I use the AI doctor without internet?</h3>
+                        <h3 class="font-semibold text-gray-800 mb-3 cursor-pointer" onclick="toggleAccordion(this)">Can I use the AI doctor without internet?</h3><hr>
                         <p class="text-gray-600">
                             We offer a limited offline mode that provides basic diagnostic capabilities when internet connectivity is poor. However, for the most accurate and personalized recommendations, an internet connection is recommended.
                         </p>
@@ -251,7 +251,7 @@
                         </li>
                         <li>
                             <i data-lucide="clock"></i>
-                            <span>Mon-Sat: 8:00 AM - 10:00 PM</span>
+                            <span>24/7 at your service</span>
                         </li>
                     </ul>
                 </div>
@@ -277,7 +277,7 @@
             <i data-lucide="message-circle"></i>
         </button>
         
-        <div id="chat-window" class="chat-window hidden">
+        <div id="chat-window" class="chat-window">
             <div class="chat-header">
                 <h3>MediCare Chat</h3>
                 <button id="close-chat" class="close-chat">

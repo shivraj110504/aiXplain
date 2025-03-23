@@ -185,6 +185,7 @@
     width: 100%;
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
+    margin-right: 5px;
     border: 1px solid var(--gray-200);
     border-radius: var(--radius);
     background-color: white;
@@ -442,6 +443,10 @@
     background-color: white;
   }
 
+  .no-justify{
+    justify-content: normal !important;
+  }
+
   /* Styling for bg-light-bg class */
 .bg-light-bg {
   margin: 50px 20px 60px;
@@ -508,6 +513,16 @@
   border-radius: 12px;
   box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.background-wh{
+  background: white;
+  padding: 2px;
+  border-radius: 12px;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1);
   align-items: center;
   border: 1px solid #e5e7eb;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
