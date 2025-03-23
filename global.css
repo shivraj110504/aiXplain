@@ -1,43 +1,46 @@
 /* Base styles */
 :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 262 53% 51%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215 16% 47%;
-    --accent: 262 53% 95%;
-    --accent-foreground: 262 53% 51%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 262 53% 51%;
-    --radius: 0.5rem;
-    
-    /* Converted Tailwind colors to CSS variables */
-    --primary-color: hsl(262, 53%, 51%);
-    --primary-hover: hsl(262, 53%, 45%);
-    --secondary-color: hsl(210, 40%, 96.1%);
-    --secondary-hover: hsl(210, 40%, 90%);
-    --text-primary: hsl(222, 47%, 11%);
-    --text-secondary: hsl(215, 16%, 47%);
-    --text-white: hsl(0, 0%, 100%);
-    --gray-50: hsl(210, 20%, 98%);
-    --gray-100: hsl(220, 14%, 96%);
-    --gray-200: hsl(220, 13%, 91%);
-    --gray-300: hsl(216, 12%, 84%);
-    --gray-500: hsl(218, 11%, 65%);
-    --gray-600: hsl(215, 14%, 46%);
-    --gray-700: hsl(217, 19%, 27%);
-    --gray-800: hsl(215, 28%, 17%);
-    --gray-900: hsl(221, 39%, 11%);
+  --background: 0 0% 100%;
+  --foreground: 194, 39%, 37%;
+  --card: 0 0% 100%;
+  --card-foreground: 194, 39%, 37%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 194, 39%, 37%;
+  --primary: 178, 17%, 29%;
+  --primary: 178, 17%, 29%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 194, 39%, 37%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 36, 18%, 69%;
+  --accent: 262 53% 95%;
+  --accent-foreground: 178, 17%, 29%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 178, 17%, 29%;
+  --radius: 0.5rem;
+  
+  /* Converted Tailwind colors to CSS variables */
+  --primary-color: hsl(178, 15%, 40%);
+  /* --primary-dark: #beb3a1;
+  --primary-light: #899c9a;; */
+  --primary-hover: hsl(37, 18%, 69%);
+  --secondary-color: hsl(210, 40%, 96.1%);
+  --secondary-hover: hsl(194, 39%, 37%);
+  --text-primary: hsl(112, 19%, 15%);
+  --text-secondary: hsl(36, 18%, 69%)
+  --text-white: hsl(0, 0%, 100%);
+  --gray-50: hsl(210, 20%, 98%);
+  --gray-100: hsl(220, 14%, 96%);
+  --gray-200: hsl(220, 13%, 91%);
+  --gray-300: hsl(216, 12%, 84%);
+  --gray-500: hsl(218, 11%, 65%);
+  --gray-600: hsl(36, 31%, 72%);
+  --gray-700: hsl(177, 34%, 22%);
+  --gray-800: hsl(178, 21%, 25%);
+  --gray-900: hsl(193, 50%, 14%);
   }
   
   * {
@@ -438,6 +441,179 @@
   .bg-white {
     background-color: white;
   }
+
+  /* Styling for bg-light-bg class */
+.bg-light-bg {
+  margin: 50px 20px 60px;
+  background-color: #f9f9f9;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.bg-light-bg:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Styling for training grid items */
+.training-item {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.training-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for icons */
+.training-icon {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px auto 10px;
+  transition: background-color 0.3s ease;
+}
+
+.training-icon:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Course Categories Section Styling */
+.mb-16 {
+  margin-bottom: 4rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.md\:grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.bg-white {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bg-white:hover {
+  transform: translateY(-5px);
+  box-shadow: 6px 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.mr-4 {
+  margin-right: 1rem;
+}
+
+.w-16 {
+  width: 4rem;
+}
+
+.h-16 {
+  height: 4rem;
+}
+
+.rounded-lg {
+  border-radius: 10px;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text-lg {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #043513;
+}
+
+.text-gray-600 {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+/* Styled Browse Button */
+.text-primary {
+  display: inline-flex;
+  align-items: center;
+  color: #043513;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  transition: all 0.3s ease;
+}
+
+.text-primary:hover {
+  background-color: #043513;
+  color: white;
+  transform: translateX(5px);
+}
+
+.text-primary i {
+  margin-left: 5px;
+  transition: transform 0.3s ease;
+}
+
+.text-primary:hover i {
+  transform: translateX(3px);
+}
+
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .md\:grid-cols-2 {
+      grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .grid-cols-2 {
+      grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .grid-cols-1 {
+      grid-template-columns: 1fr !important;
+  }
+
+  .grid-cols-4 {
+      grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
   
   .rounded-xl {
     border-radius: 0.75rem;
@@ -839,7 +1015,7 @@
   /* Footer */
   .footer {
     background-color: var(--gray-50);
-    padding: 4rem 0 2rem;
+    padding: 2rem 2rem 2rem;
   }
   
   .footer-grid {

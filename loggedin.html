@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MediCare - Healthcare Solutions</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="loggedin.css">
+    <link rel="stylesheet" href="styles.css">
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
     <!-- Header -->
     <header id="header" class="header">
         <div class="container">
@@ -26,15 +29,18 @@
                 <a href="hospital-beds.html" class="nav-link">Hospital Beds</a>
             </nav>
             
-            <div class="user-profile relative">
-                <div class="user-info cursor-pointer" id="userProfileToggle">
-                    <i data-lucide="user-circle" class="icon-md"></i>
-                    <span class="user-name" id="userName">User Name</span>
-                    <i data-lucide="chevron-down" class="icon-sm dropdown-arrow"></i>
+            <!-- User Profile Dropdown -->
+            <div class="user-profile">
+                <div class="user-info" id="userProfileToggle">
+                    <i data-lucide="user" class="user-icon"></i>
+                    <span class="user-name" id="displayUsername">User Name</span>
+                    <i data-lucide="chevron-down" class="dropdown-icon"></i>
                 </div>
-                <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50" id="dropdownMenu">
-                    <a href="profile.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                    <a href="#" id="logoutBtn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="#" class="dropdown-item text-red-500" id="logoutBtn">
+                        <i data-lucide="log-out"></i>
+                        <span>Logout</span>
+                    </a>
                 </div>
             </div>
             
@@ -158,60 +164,13 @@
                             <span>Free follow-up check</span>
                         </li>
                     </ul>
-                </div>
-                
-                <div class="appointment-form fade-in">
-                    <form id="appointmentForm">
-                        <div class="form-group">
-                            <label for="fullName">Full Name</label>
-                            <input type="text" id="fullName" placeholder="Enter your full name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" placeholder="Enter your email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Phone Number</label>
-                            <input type="tel" id="phone" placeholder="Enter your phone number" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="department">Department</label>
-                            <select id="department" required>
-                                <option value="" disabled selected>Select department</option>
-                                <option value="cardiology">Cardiology</option>
-                                <option value="neurology">Neurology</option>
-                                <option value="orthopedics">Orthopedics</option>
-                                <option value="pediatrics">Pediatrics</option>
-                                <option value="dermatology">Dermatology</option>
-                                <option value="general-medicine">General Medicine</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="appointmentDate">Preferred Date</label>
-                            <input type="date" id="appointmentDate" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="appointmentTime">Preferred Time</label>
-                            <select id="appointmentTime" required>
-                                <option value="" disabled selected>Select time</option>
-                                <option value="morning">Morning (9 AM - 12 PM)</option>
-                                <option value="afternoon">Afternoon (12 PM - 3 PM)</option>
-                                <option value="evening">Evening (3 PM - 6 PM)</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message">Additional Information</label>
-                            <textarea id="message" placeholder="Briefly describe your symptoms or reason for visit"></textarea>
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary btn-block">Book Appointment</button>
-                    </form>
+
+                    <div class="appointment-cta">
+                        <a href="appointment.html" class="btn btn-primary btn-lg">
+                            <i data-lucide="calendar"></i>
+                            Book Your Appointment
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -296,18 +255,18 @@
                 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <i data-lucide="clipboard-check"></i>
+                        <i data-lucide="building"></i>
                     </div>
-                    <div class="stat-number" data-count="30000">0</div>
-                    <div class="stat-label">Successful Treatments</div>
+                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-label">Partner Hospitals</div>
                 </div>
                 
                 <div class="stat-card">
                     <div class="stat-icon">
-                        <i data-lucide="award"></i>
+                        <i data-lucide="star"></i>
                     </div>
-                    <div class="stat-number" data-count="15">0</div>
-                    <div class="stat-label">Years of Experience</div>
+                    <div class="stat-number" data-count="98">0</div>
+                    <div class="stat-label">Success Rate</div>
                 </div>
             </div>
         </div>
@@ -320,8 +279,8 @@
                 <h2 class="cta-title">Ready to experience better healthcare?</h2>
                 <p class="cta-subtitle">Sign up now and get a free health consultation with our experts.</p>
                 <div class="cta-buttons">
-                    <a href="signup.html" class="btn btn-primary btn-lg">Sign Up Now</a>
-                    <a href="contact.html" class="btn btn-outline btn-lg">Contact Us</a>
+                    <a href="signup.html" class="btn btn-primary btn-lg">Get Started</a>
+                    <a href="about.html" class="btn btn-outline btn-lg">Learn More</a>
                 </div>
             </div>
         </div>
@@ -332,8 +291,8 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h3 class="footer-logo">MediCare</h3>
-                    <p>Providing quality healthcare services and innovative solutions to improve your wellbeing.</p>
+                    <h3>MediCare</h3>
+                    <p>Providing innovative healthcare solutions for everyone.</p>
                     <div class="social-links">
                         <a href="#" class="social-link"><i data-lucide="facebook"></i></a>
                         <a href="#" class="social-link"><i data-lucide="twitter"></i></a>
@@ -360,47 +319,36 @@
                         <li><a href="#">Telemedicine</a></li>
                         <li><a href="#">Health Checkups</a></li>
                         <li><a href="#">Medical Tourism</a></li>
-                        <li><a href="#">Home Healthcare</a></li>
-                        <li><a href="#">Emergency Services</a></li>
+                        <li><a href="#">Lab Tests</a></li>
+                        <li><a href="#">Mental Health</a></li>
+                        <li><a href="#">Emergency Care</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-col">
                     <h3>Contact Us</h3>
-                    <ul class="contact-list">
+                    <ul class="footer-contact">
                         <li>
                             <i data-lucide="map-pin"></i>
-                            <span>123 Healthcare Avenue, Medical District, City, Country</span>
+                            <span>123 Healthcare Ave, Medical District, City - 12345</span>
                         </li>
                         <li>
                             <i data-lucide="phone"></i>
-                            <span>+91 1800 123 4567</span>
+                            <span>+1 (555) 123-4567</span>
                         </li>
                         <li>
                             <i data-lucide="mail"></i>
-                            <span>info@medicare-example.com</span>
-                        </li>
-                        <li>
-                            <i data-lucide="clock"></i>
-                            <span>Mon-Sat: 8:00 AM - 10:00 PM</span>
+                            <span>support@medicare.com</span>
                         </li>
                     </ul>
                 </div>
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; <span id="current-year">2023</span> MediCare. All rights reserved.</p>
-                <div class="footer-bottom-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Cookie Policy</a>
-                </div>
+                <p>&copy; <span id="current-year"></span> MediCare. All rights reserved.</p>
             </div>
         </div>
     </footer>
-
-    <!-- Toast Container -->
-    <div id="toast-container" class="toast-container"></div>
 
     <!-- Chatbot -->
     <div class="chatbot-container">
@@ -431,8 +379,9 @@
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script src="common.js"></script>
     <script src="main.js"></script>
     <script src="index.js"></script>
-    <script src="loggedin.js"></script>
 </body>
 </html>

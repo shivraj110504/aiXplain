@@ -1,16 +1,16 @@
 
 /* Base Styles */
 :root {
-  --primary: hsl(262, 53%, 51%);
-  --primary-dark: hsl(262, 53%, 41%);
-  --primary-light: hsl(262, 53%, 95%);
+  --primary: #3e5857;
+  --primary-dark: #beb3a1;
+  --primary-light: #899c9a;
   --secondary: hsl(210, 40%, 96.1%);
   --accent: hsl(262, 53%, 95%);
-  --foreground: hsl(222, 47%, 11%);
+  --foreground: #3a7283;
   --background: hsl(0, 0%, 100%);
   --muted: hsl(210, 40%, 96.1%);
   --muted-foreground: hsl(215, 16%, 47%);
-  --border: hsl(214, 32%, 91%);
+  --border: #dedddb;
   --radius: 0.5rem;
   --destructive: hsl(0, 84%, 60%);
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -260,7 +260,7 @@ p {
 
 /* Hero Section */
 .hero {
-  padding: 8rem 0 4rem;
+  padding: 8rem 2rem 4rem;
   background: linear-gradient(135deg, #f7faff 0%, #e9effd 100%);
   position: relative;
   overflow: hidden;
@@ -382,6 +382,7 @@ p {
 
 .appointment-features {
   margin-top: 2rem;
+  margin-left: 6rem;
 }
 
 .appointment-features li {
@@ -532,7 +533,7 @@ p {
 
 /* CTA Section */
 .cta {
-  background: linear-gradient(90deg, var(--primary) 0%, hsl(262, 60%, 60%) 100%);
+  background: linear-gradient(90deg, var(--primary) 0%, hsl(69, 20%, 65%) 100%);
   color: white;
   text-align: center;
 }
@@ -568,7 +569,7 @@ p {
 /* Footer */
 .footer {
   background-color: var(--muted);
-  padding: 5rem 0 2rem;
+  padding: 3rem 2rem 2rem;
 }
 
 .footer-grid {
@@ -1086,6 +1087,11 @@ p {
   width: 18px;
   height: 18px;
   margin-top: 3px;
+}
+
+.appointment-content, .appointment-features{
+  /* padding: 0px, 2px, 0px; */
+  text-align: center;
 }
 
 /* Responsive Styles */

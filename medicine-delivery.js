@@ -26,9 +26,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const prescriptionUpload = document.getElementById('prescriptionUpload');
     const fileNameDisplay = document.getElementById('fileNameDisplay');
     const placeOrderBtn = document.getElementById('placeOrderBtn');
+    const orderForm = document.getElementById('orderForm');
     
     // Cart state
-    let cart = [];
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
     
     // Sample medicine data
     const medicines = [
@@ -88,9 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Event listeners
     searchInput.addEventListener('input', handleSearch);
-    uploadBtn.addEventListener('click', function() {
-        prescriptionUpload.click();
-    });
+    uploadBtn.addEventListener('click', () => prescriptionUpload.click());
     
     prescriptionUpload.addEventListener('change', function() {
         if (this.files.length > 0) {
@@ -99,8 +98,13 @@ document.addEventListener('DOMContentLoaded', function() {
             fileNameDisplay.textContent = 'No file chosen';
         }
     });
-    
-    placeOrderBtn.addEventListener('click', placeOrder);
+
+    if (orderForm) {
+        orderForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            await placeOrder();
+        });
+    }
     
     // Functions
     function handleSearch() {
@@ -109,135 +113,17 @@ document.addEventListener('DOMContentLoaded', function() {
             medicine.name.toLowerCase().includes(searchTerm) ||
             medicine.genericName.toLowerCase().includes(searchTerm)
         );
-        
         displayMedicines(filteredMedicines);
     }
-    
-    function displayMedicines(medicinesToDisplay) {
-        medicinesList.innerHTML = '';
-        
-        if (medicinesToDisplay.length === 0) {
-            const emptyMessage = document.createElement('div');
-            emptyMessage.className = 'bg-white rounded-xl shadow-sm p-8 text-center';
-            emptyMessage.innerHTML = '<p class="text-gray-500">No medicines found matching your search.</p>';
-            medicinesList.appendChild(emptyMessage);
+
+    async function placeOrder() {
+        const userData = JSON.parse(localStorage.getItem('medicare-user'));
+        if (!userData) {
+            showToast('Please log in to place an order', 'error');
+            setTimeout(() => window.location.href = 'login.html', 1500);
             return;
         }
-        
-        medicinesToDisplay.forEach(medicine => {
-            const medicineCard = document.createElement('div');
-            medicineCard.className = 'bg-white rounded-xl shadow-sm p-4 flex justify-between items-center border border-gray-100';
-            
-            const getStockClass = (stock) => {
-                if (stock === 'In Stock') return 'bg-green-100 text-green-800';
-                if (stock === 'Low Stock') return 'bg-yellow-100 text-yellow-800';
-                return 'bg-red-100 text-red-800';
-            };
-            
-            medicineCard.innerHTML = `
-                <div>
-                    <h3 class="font-semibold text-gray-800">${medicine.name}</h3>
-                    <p class="text-gray-500 text-sm">${medicine.genericName}</p>
-                    <div class="flex items-center mt-2 space-x-2">
-                        <span class="text-xs px-2 py-1 rounded-full ${getStockClass(medicine.stock)}">
-                            ${medicine.stock}
-                        </span>
-                        ${medicine.prescriptionRequired ? `
-                            <span class="text-xs px-2 py-1 rounded-full bg-purple-100 text-purple-800">
-                                Prescription Required
-                            </span>
-                        ` : ''}
-                    </div>
-                </div>
-                <div class="text-right">
-                    <p class="font-semibold text-gray-800">₹${medicine.price}</p>
-                    <button 
-                        class="btn btn-primary mt-2 ${medicine.stock === 'Out of Stock' ? 'opacity-50 cursor-not-allowed' : ''}"
-                        ${medicine.stock === 'Out of Stock' ? 'disabled' : ''}
-                        data-id="${medicine.id}"
-                    >
-                        Add to Cart
-                    </button>
-                </div>
-            `;
-            
-            const addToCartBtn = medicineCard.querySelector('button');
-            if (medicine.stock !== 'Out of Stock') {
-                addToCartBtn.addEventListener('click', () => addToCart(medicine));
-            }
-            
-            medicinesList.appendChild(medicineCard);
-        });
-    }
-    
-    function addToCart(medicine) {
-        const existingItemIndex = cart.findIndex(item => item.id === medicine.id);
-        
-        if (existingItemIndex >= 0) {
-            cart[existingItemIndex].quantity += 1;
-        } else {
-            cart.push({ ...medicine, quantity: 1 });
-        }
-        
-        updateCartUI();
-        showToast(`Added ${medicine.name} to cart`, 'success');
-    }
-    
-    function removeFromCart(medicineId) {
-        cart = cart.filter(item => item.id !== medicineId);
-        updateCartUI();
-    }
-    
-    function updateCartUI() {
-        if (cart.length === 0) {
-            emptyCart.classList.remove('hidden');
-            cartContent.classList.add('hidden');
-            return;
-        }
-        
-        emptyCart.classList.add('hidden');
-        cartContent.classList.remove('hidden');
-        
-        // Update cart items
-        cartItems.innerHTML = '';
-        cart.forEach(item => {
-            const cartItem = document.createElement('div');
-            cartItem.className = 'flex justify-between items-start';
-            cartItem.innerHTML = `
-                <div>
-                    <h4 class="font-medium text-gray-800">${item.name}</h4>
-                    <p class="text-gray-500 text-sm">₹${item.price} x ${item.quantity}</p>
-                </div>
-                <div class="flex items-center">
-                    <button 
-                        class="text-red-500 hover:text-red-700 p-0"
-                        data-id="${item.id}"
-                    >
-                        Remove
-                    </button>
-                </div>
-            `;
-            
-            const removeBtn = cartItem.querySelector('button');
-            removeBtn.addEventListener('click', () => removeFromCart(item.id));
-            
-            cartItems.appendChild(cartItem);
-        });
-        
-        // Update totals
-        const subtotal = calculateSubtotal();
-        const deliveryFee = 40;
-        const total = subtotal + deliveryFee;
-        
-        subtotalAmount.textContent = `₹${subtotal}`;
-        totalAmount.textContent = `₹${total}`;
-    }
-    
-    function calculateSubtotal() {
-        return cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    }
-    
-    function placeOrder() {
+
         if (cart.length === 0) {
             showToast('Your cart is empty', 'error');
             return;
@@ -249,29 +135,153 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
-        // Check if any medicine requires prescription
-        const prescriptionRequired = cart.some(item => item.prescriptionRequired);
-        if (prescriptionRequired && !prescriptionUpload.files.length) {
-            showToast('Please upload a prescription for prescription-only medicines', 'error');
+        const specialInstructions = document.getElementById('specialInstructions').value;
+        const subtotal = calculateSubtotal();
+        const deliveryFee = 40; // Fixed delivery fee
+        const total = subtotal + deliveryFee;
+
+        const orderData = {
+            username: userData.fullName,
+            email: userData.email,
+            address: address.trim(),
+            specialInstructions: specialInstructions.trim(),
+            subtotal: subtotal,
+            deliveryFee: deliveryFee,
+            total: total,
+            cart: cart.map(item => ({
+                name: item.name,
+                quantity: item.quantity,
+                price: item.price
+            }))
+        };
+
+        // Add prescription file if uploaded
+        const prescriptionFile = prescriptionUpload.files[0];
+        const formData = new FormData();
+        formData.append('username', orderData.username);
+        formData.append('email', orderData.email);
+        formData.append('address', orderData.address);
+        formData.append('specialInstructions', orderData.specialInstructions);
+        formData.append('subtotal', orderData.subtotal);
+        formData.append('deliveryFee', orderData.deliveryFee);
+        formData.append('total', orderData.total);
+        formData.append('cart', JSON.stringify(orderData.cart));
+        if (prescriptionFile) {
+            formData.append('prescription', prescriptionFile);
+        }
+
+        try {
+            showToast('Placing your order...', 'info');
+            
+            const response = await fetch('http://localhost:3001/placeOrder', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                showToast('Order placed successfully!', 'success');
+                // Clear cart and form
+                cart = [];
+                localStorage.setItem('cart', JSON.stringify(cart));
+                orderForm.reset();
+                fileNameDisplay.textContent = 'No file chosen';
+                updateCartUI();
+                setTimeout(() => window.location.href = 'loggedin.html', 2000);
+            } else {
+                showToast(result.message || 'Failed to place order', 'error');
+            }
+        } catch (error) {
+            console.error('Order Error:', error);
+            showToast('An error occurred. Please try again.', 'error');
+        }
+    }
+
+    function displayMedicines(medicinesToDisplay) {
+        medicinesList.innerHTML = '';
+        medicinesToDisplay.forEach(medicine => {
+            const card = document.createElement('div');
+            card.className = 'medicine-card';
+            card.innerHTML = `
+                <h3>${medicine.name}</h3>
+                <p class="generic-name">${medicine.genericName}</p>
+                <p class="price">₹${medicine.price}</p>
+                <p class="stock ${medicine.stock === 'Low Stock' ? 'low-stock' : ''}">${medicine.stock}</p>
+                ${medicine.prescriptionRequired ? '<p class="prescription-required">Prescription Required</p>' : ''}
+                <button class="btn btn-primary btn-sm add-to-cart" onclick="addToCart(${JSON.stringify(medicine).replace(/"/g, '&quot;')})">
+                    <i data-lucide="shopping-cart"></i>
+                    Add to Cart
+                </button>
+            `;
+            medicinesList.appendChild(card);
+        });
+        lucide.createIcons();
+    }
+
+    // Make addToCart and removeFromCart available globally
+    window.addToCart = function(medicine) {
+        const existingItem = cart.find(item => item.id === medicine.id);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ ...medicine, quantity: 1 });
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartUI();
+        showToast(`${medicine.name} added to cart`, 'success');
+    };
+
+    window.removeFromCart = function(medicineId) {
+        cart = cart.filter(item => item.id !== medicineId);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartUI();
+    };
+
+    function updateCartUI() {
+        if (cart.length === 0) {
+            emptyCart.classList.remove('hidden');
+            cartContent.classList.add('hidden');
             return;
         }
-        
-        // Simulate order placement
-        showToast('Order placed successfully! Your medicine will be delivered soon.', 'success');
-        
-        // Reset form and cart
-        cart = [];
-        document.getElementById('addressInput').value = '';
-        document.getElementById('specialInstructions').value = '';
-        fileNameDisplay.textContent = 'No file chosen';
-        prescriptionUpload.value = '';
-        updateCartUI();
+
+        emptyCart.classList.add('hidden');
+        cartContent.classList.remove('hidden');
+
+        // Update cart items
+        cartItems.innerHTML = '';
+        cart.forEach(item => {
+            const cartItem = document.createElement('div');
+            cartItem.className = 'cart-item';
+            cartItem.innerHTML = `
+                <div class="cart-item-info">
+                    <h4>${item.name}</h4>
+                    <p class="cart-item-price">₹${item.price} × ${item.quantity}</p>
+                </div>
+                <div class="cart-item-total">
+                    <p>₹${item.price * item.quantity}</p>
+                    <button class="btn btn-icon btn-danger" onclick="removeFromCart('${item.id}')">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                </div>
+            `;
+            cartItems.appendChild(cartItem);
+        });
+
+        // Update totals
+        const subtotal = calculateSubtotal();
+        const deliveryFee = 40; // Fixed delivery fee
+        const total = subtotal + deliveryFee;
+
+        subtotalAmount.textContent = `₹${subtotal}`;
+        totalAmount.textContent = `₹${total}`;
+
+        // Reinitialize icons
+        lucide.createIcons();
     }
-    
-    function showToast(message, type = 'info') {
-        // This function is implemented in main.js
-        // We'll just use it here
-        window.showToast(message, type);
+
+    function calculateSubtotal() {
+        return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
     }
 });
 
